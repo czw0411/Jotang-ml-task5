@@ -1,0 +1,7 @@
+# Python 3.9+ ; 本次实验环境为 Python 3.12 / CPU
+torch>=2.0
+torchvision>=0.15
+clip @ git+https://github.com/openai/CLIP.git
+numpy
+matplotlib
+pillow

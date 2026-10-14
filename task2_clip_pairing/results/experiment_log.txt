@@ -1,0 +1,102 @@
+device               : cpu
+model                : RN50 (OpenAI CLIP, 1024-d joint embedding space)
+logit_scale value    : 100.0000 (learned temperature tau = 0.0100)
+
+input image tensor   : (4, 3, 224, 224)  (N, 3, 224, 224)
+[saved] C:\Users\chen\Documents\Codex\2026-10-14\1-clip-learning-transferable-visual-models\work\results\images_overview.png
+text  token shape    : (4, 77)  (N, 77 context length)
+image features (raw) : (4, 1024)
+text features  (raw) : (4, 1024)
+
+L2 norms before / after normalization (image):
+  dog       |f|=  1.866 -> |f|= 1.0000
+  cat       |f|=  2.096 -> |f|= 1.0000
+  apple     |f|=  2.818 -> |f|= 1.0000
+  airplane  |f|=  1.944 -> |f|= 1.0000
+L2 norms before / after normalization (text):
+  dog       |f|=  8.763 -> |f|= 1.0000
+  cat       |f|=  9.148 -> |f|= 1.0000
+  apple     |f|=  9.186 -> |f|= 1.0000
+  airplane  |f|= 10.240 -> |f|= 1.0000
+
+normalized image features: (4, 1024)
+normalized text  features: (4, 1024)
+
+=== Experiment 1: 4x4 cosine similarity matrix ===
+image \ text           dog         cat       apple    airplane
+dog                 0.2917      0.1124      0.0845      0.1153
+cat                 0.0530      0.3401      0.0577      0.0404
+apple               0.0855      0.0672      0.2439      0.0732
+airplane            0.1022      0.0315      0.0583      0.2632
+
+top-1 pairing per image:
+  image 1 (dog): pred='dog' sim=0.2917 OK | runner-up 'airplane' 0.1153 (margin +0.1764)
+  image 2 (cat): pred='cat' sim=0.3401 OK | runner-up 'apple' 0.0577 (margin +0.2824)
+  image 3 (apple): pred='apple' sim=0.2439 OK | runner-up 'dog' 0.0855 (margin +0.1584)
+  image 4 (airplane): pred='airplane' sim=0.2632 OK | runner-up 'dog' 0.1022 (margin +0.1610)
+top-1 accuracy: 4/4
+[saved] C:\Users\chen\Documents\Codex\2026-10-14\1-clip-learning-transferable-visual-models\work\results\similarity_4x4_heatmap.png
+
+image->text probabilities (softmax over the learned logit scale):
+  dog       dog=1.00000 cat=0.00000 apple=0.00000 airplane=0.00000
+  cat       dog=0.00000 cat=1.00000 apple=0.00000 airplane=0.00000
+  apple     dog=0.00000 cat=0.00000 apple=1.00000 airplane=0.00000
+  airplane  dog=0.00000 cat=0.00000 apple=0.00000 airplane=1.00000
+
+=== Experiment 2: adding the deliberately wrong caption ===
+hard negative: "a red tomato on a white background"  (image 3 is an apple on a white background)
+image \ text           dog         cat       apple    airplane    ..tomato
+dog                 0.2917      0.1124      0.0845      0.1153      0.0779
+cat                 0.0530      0.3401      0.0577      0.0404      0.0630
+apple               0.0855      0.0672      0.2439      0.0732      0.1845
+airplane            0.1022      0.0315      0.0583      0.2632      0.0697
+  apple vs 'a red apple ... '  : 0.2439
+  apple vs 'a red tomato ...'  : 0.1845  (delta -0.0593)
+  all-other-image vs tomato    : 0.0702 (mean of the 3 unrelated images)
+top-1 accuracy with the 5th caption present: 4/4
+  image 1 (dog): pred='dog' sim=0.2917 OK | runner-up 'airplane' 0.1153 (margin +0.1764)
+  image 2 (cat): pred='cat' sim=0.3401 OK | runner-up 'apple' 0.0577 (margin +0.2824)
+  image 3 (apple): pred='apple' sim=0.2439 OK | runner-up 'dog' 0.0855 (margin +0.1584)
+  image 4 (airplane): pred='airplane' sim=0.2632 OK | runner-up 'dog' 0.1022 (margin +0.1610)
+[saved] C:\Users\chen\Documents\Codex\2026-10-14\1-clip-learning-transferable-visual-models\work\results\similarity_5x5_heatmap.png
+
+=== Experiment 3: image x image cosine similarity ===
+image \ image          dog         cat       apple    airplane
+dog                 1.0000      0.6186      0.5341      0.4804
+cat                 0.6186      1.0000      0.4851      0.3937
+apple               0.5341      0.4851      1.0000      0.4296
+airplane            0.4804      0.3937      0.4296      1.0000
+
+=== Experiment 4: caption perturbations for the dog photo ===
+  correct (reference)  sim=0.2917  <- "a golden retriever dog running on the grass"
+  colour wrong         sim=0.2421  <- "a black dog running on the grass"
+  count wrong          sim=0.2420  <- "two dogs running on the grass"
+  action wrong         sim=0.1455  <- "a golden retriever sleeping on a bed"
+  species wrong        sim=0.2213  <- "a white cat running on the grass"
+  drop caused by the colour error : -0.0496
+  drop caused by the count error  : -0.0498
+  drop caused by the action error : -0.1462
+  drop caused by the species error: -0.0704
+[saved] C:\Users\chen\Documents\Codex\2026-10-14\1-clip-learning-transferable-visual-models\work\results\caption_perturbation_dog.png
+
+=== Experiment 5: prompt engineering (zero-shot classification) ===
+  bare label               preds=['dog', 'cat', 'apple', 'airplane'] acc=4/4
+  'a photo of a ...'       preds=['dog', 'cat', 'apple', 'airplane'] acc=4/4
+  'a photo of a small ...' preds=['dog', 'cat', 'apple', 'airplane'] acc=4/4
+  'a photo of a large ...' preds=['dog', 'cat', 'apple', 'airplane'] acc=4/4
+  ensemble of 8 templates  preds=['dog', 'cat', 'apple', 'airplane'] acc=4/4
+
+  dog image similarity to different prompts:
+    0.2009  <- "dog"
+    0.2147  <- "a photo of a dog"
+    0.1969  <- "a photo of a black dog"
+
+=== Experiment 6: what the learned temperature does to the softmax ===
+CLIP computes softmax(logit_scale * cosine_similarity); logit_scale = 1/tau.
+  scale=1      (tau=1      ) mean entropy=1.381 nats, mean max prob=0.2917, apple row=[0.2415, 0.2371, 0.2829, 0.2385]
+  scale=5      (tau=0.2    ) mean entropy=1.246 nats, mean max prob=0.4884, apple row=[0.1976, 0.1804, 0.4362, 0.1858]
+  scale=20     (tau=0.05   ) mean entropy=0.272 nats, mean max prob=0.9416, apple row=[0.0381, 0.0265, 0.9056, 0.0298]
+  scale=100    (tau=0.01   ) mean entropy=0.000 nats, mean max prob=1.0000, apple row=[0.0, 0.0, 1.0, 0.0]
+  (max possible entropy for 4 classes = ln 4 = 1.3863 nats)
+[saved] C:\Users\chen\Documents\Codex\2026-10-14\1-clip-learning-transferable-visual-models\work\results\temperature_sweep_apple_row.png
+[saved] C:\Users\chen\Documents\Codex\2026-10-14\1-clip-learning-transferable-visual-models\work\results\results.json

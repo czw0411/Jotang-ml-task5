@@ -1,0 +1,54 @@
+[
+  {
+    "file": "01_dog.jpg",
+    "commons_title": "File:Happy 2.jpg",
+    "description_page": "https://commons.wikimedia.org/wiki/File:Happy_2.jpg",
+    "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Happy_2.jpg/1280px-Happy_2.jpg",
+    "original_size": "1575x1575",
+    "artist": "carollindenbr",
+    "credit": "Own work",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "image_description": "Golden retriever running on grass",
+    "date": "28 June 2014 (upload date)"
+  },
+  {
+    "file": "02_cat.jpg",
+    "commons_title": "File:Cat playing with a lizard.jpg",
+    "description_page": "https://commons.wikimedia.org/wiki/File:Cat_playing_with_a_lizard.jpg",
+    "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Cat_playing_with_a_lizard.jpg/1280px-Cat_playing_with_a_lizard.jpg",
+    "original_size": "5557x3125",
+    "artist": "Basile Morin",
+    "credit": "Own work",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "image_description": "Seated Felis silvestris catus (domestic cat) playing with a passive Calotes versicolor , (oriental garden lizard), facing it, in Laos",
+    "date": "2018-04-26 12:19:23"
+  },
+  {
+    "file": "03_apple.jpg",
+    "commons_title": "File:Red Apple.jpg",
+    "description_page": "https://commons.wikimedia.org/wiki/File:Red_Apple.jpg",
+    "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/1280px-Red_Apple.jpg",
+    "original_size": "2418x2192",
+    "artist": "Abhijit Tembhekar from Mumbai, India",
+    "credit": "Nikon D80 Apple",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "image_description": "Red Apple. Used white paper behind apple and above apple and bounced SB-600 at 1/4th power.",
+    "date": "2009-03-10"
+  },
+  {
+    "file": "04_airplane.jpg",
+    "commons_title": "File:Sopwith Triplane replica flying overhead in blue sky.jpg",
+    "description_page": "https://commons.wikimedia.org/wiki/File:Sopwith_Triplane_replica_flying_overhead_in_blue_sky.jpg",
+    "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Sopwith_Triplane_replica_flying_overhead_in_blue_sky.jpg/1280px-Sopwith_Triplane_replica_flying_overhead_in_blue_sky.jpg",
+    "original_size": "1920x1440",
+    "artist": "Pseudopanax at English Wikipedia",
+    "credit": "Own work",
+    "license": "Public domain",
+    "license_url": "",
+    "image_description": "Sopwith Triplane replica \"Black Maria\" flying overhead in blue sky",
+    "date": "27 February 2021"
+  }
+]
